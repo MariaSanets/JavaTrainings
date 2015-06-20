@@ -1,0 +1,29 @@
+import com.sun.org.apache.xpath.internal.operations.*;
+
+import java.lang.String;
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        System.out.println("Vvedite 5 celih chisel");
+        int i=0;
+        int []mas=new int[5];
+        try {
+            for (i = 0; i < mas.length; i++) {
+                mas[i] = in.nextInt();
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Oshibka. Vveden simvol, ne chislo");
+        }
+        System.out.println("Chisla kratnie 3:");
+        for(i=0;i<mas.length;i++) {
+            if (mas[i] % 3 == 0) {
+                System.out.println(mas[i]);
+            }
+        }
+    }
+}
