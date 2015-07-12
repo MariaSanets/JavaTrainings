@@ -1,0 +1,33 @@
+Задача 1
+
+сделать утилиту grep: читает файл построчно, и выводите на экран только те строки, которые содержат слово
+
+
+import java.util.*;
+import java.io.*;
+
+/**
+ * Created on 12.07.2015.
+ */
+public class File {
+
+    public static void main(String[]args){
+        Scanner scan = new Scanner(System.in);
+        try(BufferedReader br = new BufferedReader(new FileReader("src\\myFile.txt")))
+        {
+            System.out.println("Enter word to find");
+            String word=scan.nextLine();
+
+            String str;
+            while ((str=br.readLine())!=null) {
+                if (str.indexOf(word) != -1) {
+                    System.out.println(str);
+                }
+            }
+        }
+        catch (IOException ex){
+            System.out.println(ex.getMessage());
+        }
+
+    }
+}
