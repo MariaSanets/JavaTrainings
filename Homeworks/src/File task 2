@@ -1,0 +1,170 @@
+import java.io.*;
+import java.util.*;
+import java.util.zip.DataFormatException;
+
+/**
+ * Created by Maria on 12.07.2015.
+ */
+public class Marks {
+
+    public static void main(String [] args) {
+        List1 lists = new List1();
+        List2 list2 = new List2();
+        List3 list3 = new List3();
+        AverageMark averageMark=new AverageMark();
+        Scanner scanner = new Scanner(System.in);
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src\\myFile.txt"))) {
+            String str;
+            while ((str = bufferedReader.readLine()) != null) {
+                System.out.println(str);
+                String[] arrayString = str.split(":");
+                String[] arrayStringMark = arrayString[1].split(",");
+                int[] mass = new int[arrayStringMark.length];
+                for (int i = 0; i < arrayStringMark.length; i++) {
+                    mass[i] = Integer.parseInt(arrayStringMark[i].trim());
+                }
+
+                float avMark=averageMark.getAverageMark(mass);
+                System.out.println("Average mark of "+arrayString[0]+"="+avMark);
+
+                String listOne = arrayString[0] + ": " + lists.getList1(mass);
+                System.out.println(listOne);
+                FileWriter fw = new FileWriter("src\\ListOne.txt",true);
+                fw.write(listOne+"\n");
+                fw.close();
+
+                String listTwo = arrayString[0] + ": " + list2.getList2(mass);
+                System.out.println(listTwo);
+                FileWriter fw2 = new FileWriter("src\\ListTwo.txt",true);
+                fw2.write(listTwo+"\n");
+                fw2.close();
+
+                String listThree = arrayString[0] + ": " + list3.getList3(mass);
+                System.out.println(listThree);
+                FileWriter fw3 = new FileWriter("src\\ListThree.txt",true);
+                fw3.write(listThree+"\n");
+                fw3.close();
+            }
+        }
+        catch (IOException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+
+}
+
+public class AverageMark {
+    public float getAverageMark(int mass[])
+    {
+        int summ=0;
+        for (int i=0; i<mass.length; i++)
+        {
+            summ=summ+mass[i];
+        }
+        float avMark=(float)summ/mass.length;
+        return avMark;
+    }
+}
+
+public class List1 {
+    public String getList1(int mass[])
+    {
+        int n=0;
+        for (int i=0; i<mass.length; i++)
+        {
+            if(mass[i]<4) {
+                n++;
+            }
+        }
+        int [] mark=new int[n];
+        int l=0;
+        for (int i=0; i<mass.length; i++)
+        {
+            if(mass[i]<4){
+                mark[l]=mass[i];
+                l++;
+            }
+        }
+        String list="";
+        for (int i=0; i<mark.length; i++)
+        {
+            if (i==mark.length-1)
+            {
+                list=list+mark[i];
+            }else{
+                 list=list+mark[i]+",";
+            }
+        }
+
+        return list;
+    }
+}
+
+public class List2 {
+    public String getList2(int mass[])
+    {
+        int n=0;
+        for (int i=0; i<mass.length; i++)
+        {
+            if(mass[i]>8) {
+                n++;
+            }
+        }
+        int [] mark=new int[n];
+        int l=0;
+        for (int i=0; i<mass.length; i++)
+        {
+            if(mass[i]>8){
+                mark[l]=mass[i];
+                l++;
+            }
+        }
+        String list="";
+        for (int i=0; i<mark.length; i++)
+        {
+            if (i==mark.length-1)
+            {
+                list=list+mark[i];
+            }else{
+                list=list+mark[i]+",";
+            }
+        }
+        return list;
+    }
+}
+
+public class List3 {
+    public String getList3(int mass[])
+    {
+        int n=0;
+        for (int i=0; i<mass.length; i++)
+        {
+            if(mass[i]>3&&mass[i]<9) {
+                n++;
+            }
+        }
+        int [] mark=new int[n];
+        int l=0;
+        for (int i=0; i<mass.length; i++)
+        {
+            if(mass[i]>3&&mass[i]<9){
+                mark[l]=mass[i];
+                l++;
+            }
+        }
+        String list="";
+        for (int i=0; i<mark.length; i++)
+        {
+            if (i==mark.length-1)
+            {
+                list=list+mark[i];
+            }else{
+                list=list+mark[i]+",";
+            }
+        }
+
+        return list;
+    }
+
+}
